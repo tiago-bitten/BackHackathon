@@ -1,5 +1,7 @@
 ﻿using BackHackathon.Application.Exemplo;
 using BackHackathon.Application.Exemplo.Dtos;
+using BackHackathon.Domain.Queries.GetRecuperarAmbienteUsuario;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackHackathon.Api.Controllers;
@@ -8,17 +10,20 @@ namespace BackHackathon.Api.Controllers;
 [Route("[controller]/[action]")]
 public class ExemploController : ControllerBase
 {
+    private readonly IMediator _mediator;
     private readonly IExemploAppService _exemploAppService;
 
-    public ExemploController(IExemploAppService exemploAppService)
+    public ExemploController(IExemploAppService exemploAppService,
+        IMediator mediator)
     {
+        _mediator = mediator;
         _exemploAppService = exemploAppService;
     }
 
     [HttpGet(Name = "GetAmbienteUsuario")]
-    public async Task<IActionResult> GetAmbienteUsuario([FromQuery] AmbienteUsuarioRequestDto requestDto)
+    public async Task<IActionResult> GetAmbienteUsuario([FromQuery] GetRecuperarAmbienteUsuarioQuery query)
     {
-        var result = await _exemploAppService.RecuperarAmbienteUsuario(requestDto);
+        var result = await _mediator.Send(query);
         return Ok(result);
     }
     

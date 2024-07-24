@@ -1,13 +1,9 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
+using BackHackathon.Application.Exemplo.Dtos;
 
-namespace BackHackathon.Application.Exemplo.Dtos;
+namespace BackHackathon.Domain.Dtos;
 
-public class ConfigCampoObrigatorio
-{
-
-}
-
-public class AmbienteUsuarioContent
+public class RecuperarAmbienteUsuarioDTO
 {
     [JsonPropertyName("Id")]
     public int Id { get; set; }
@@ -184,7 +180,7 @@ public class AmbienteUsuarioContent
     public object Faturas { get; set; }
 
     [JsonPropertyName("ConfigCampoObrigatorio")]
-    public List<ConfigCampoObrigatorio> ConfigCampoObrigatorio { get; set; }
+    public List<ConfigCampoObrigatorioDTO> ConfigCampoObrigatorio { get; set; }
 
     [JsonPropertyName("UnidadesPermitidas")]
     public List<UnidadesPermitida> UnidadesPermitidas { get; set; }
@@ -197,25 +193,4 @@ public class AmbienteUsuarioContent
 
     [JsonPropertyName("NextFitPayNotificarDoc")]
     public object NextFitPayNotificarDoc { get; set; }
-}
-
-public class TermosUsoSistemaWeb
-{
-    [JsonPropertyName("SincronizarTermosUso")]
-    public bool SincronizarTermosUso { get; set; }
-
-    [JsonPropertyName("Obrigatorio")]
-    public bool Obrigatorio { get; set; }
-
-    [JsonPropertyName("CodigoTermosUso")]
-    public int CodigoTermosUso { get; set; }
-}
-
-public class UnidadesPermitida
-{
-    [JsonPropertyName("Id")]
-    public int Id { get; set; }
-
-    [JsonPropertyName("Fantasia")]
-    public string Fantasia { get; set; }
 }
