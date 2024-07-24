@@ -1,10 +1,17 @@
-using BackHackathon.Application.Auth;
+using System.Reflection;
+using BackHackathon.Application.Commands.EfetuarLoginSandbox;
 using BackHackathon.Application.Exemplo;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IAuthAppService, AuthAppService>();
 builder.Services.AddScoped<IExemploAppService, ExemploAuthService>();
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblies([
+        typeof(EfetuarLoginSandboxCommand).Assembly
+    ]);
+});
 
 builder.Services.AddControllers();
 

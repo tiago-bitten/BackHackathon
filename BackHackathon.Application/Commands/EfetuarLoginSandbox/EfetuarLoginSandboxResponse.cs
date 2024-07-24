@@ -1,8 +1,8 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
-namespace BackHackathon.Application.Auth.Dtos;
+namespace BackHackathon.Application.Commands.EfetuarLoginSandbox;
 
-public class LoginResponseDto
+public class EfetuarLoginSandboxResponse
 {
     [JsonPropertyName("access_token")]
     public string AccessToken { get; set; }

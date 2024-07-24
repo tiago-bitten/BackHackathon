@@ -1,9 +1,10 @@
 ﻿using BackHackathon.Application.Exemplo.Dtos;
+using BackHackathon.Domain;
 
 namespace BackHackathon.Application.Exemplo;
 
 public interface IExemploAppService
 {
-    Task<AmbienteUsuarioResponseDto?> RecuperarAmbienteUsuario(AmbienteUsuarioRequestDto requestDtoDto);
-    Task<EnumsResponseDto?> RecuperarEnums(EnumsRequestDto requestDto);
+    Task<ApiBaseResponse<AmbienteUsuarioContent>?> RecuperarAmbienteUsuario(AmbienteUsuarioRequestDto requestDtoDto);
+    Task<ApiBaseResponse<EnumsContent>?> RecuperarEnums(EnumsRequestDto requestDto);
 }

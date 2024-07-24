@@ -1,5 +1,5 @@
-﻿using BackHackathon.Application.Auth;
-using BackHackathon.Application.Auth.Dtos;
+﻿using BackHackathon.Application.Commands.EfetuarLoginSandbox;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BackHackathon.Api.Controllers;
@@ -8,17 +8,17 @@ namespace BackHackathon.Api.Controllers;
 [Route("[controller]/[action]")]
 public class AuthController : ControllerBase
 {
-    private readonly IAuthAppService _authAppService;
+    private readonly IMediator _mediator;
     
-    public AuthController(IAuthAppService authAppService)
+    public AuthController(IMediator mediator)
     {
-        _authAppService = authAppService;
+        _mediator = mediator;
     }
     
     [HttpPost(Name = "Login")]
-    public async Task<IActionResult> Login(LoginRequestDto request)
+    public async Task<IActionResult> Login(EfetuarLoginSandboxCommand command)
     {
-        var result = await _authAppService.EfetuarLogin(request);
-        return Ok(result);
+        var response = await _mediator.Send(command);
+        return Ok(response);
     }
 }

@@ -2,18 +2,6 @@
 
 namespace BackHackathon.Application.Exemplo.Dtos;
 
-public class EnumsResponseDto
-{
-    [JsonPropertyName("Content")]
-    public EnumsContent Content { get; set; }
-
-    [JsonPropertyName("Message")]
-    public string Message { get; set; }
-
-    [JsonPropertyName("Success")]
-    public bool Success { get; set; }
-}
-
 public class EnumsContent
 {
     [JsonPropertyName("Version")]

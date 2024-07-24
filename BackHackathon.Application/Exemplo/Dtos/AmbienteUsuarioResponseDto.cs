@@ -2,18 +2,6 @@
 
 namespace BackHackathon.Application.Exemplo.Dtos;
 
-public class AmbienteUsuarioResponseDto
-{
-    [JsonPropertyName("Content")]
-    public AmbienteUsuarioContent Content { get; set; }
-
-    [JsonPropertyName("Message")]
-    public string Message { get; set; }
-
-    [JsonPropertyName("Success")]
-    public bool Success { get; set; }
-}
-
 public class ConfigCampoObrigatorio
 {
     [JsonPropertyName("Origem")]
