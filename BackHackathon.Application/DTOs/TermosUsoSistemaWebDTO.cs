@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace BackHackathon.Application.Dtos;
 
-public class TermosUsoSistemaWeb
+public class TermosUsoSistemaWebDTO
 {
     [JsonPropertyName("SincronizarTermosUso")]
     public bool SincronizarTermosUso { get; set; }

@@ -12,6 +12,10 @@ namespace BackHackathon.Application.Constants
             public const string EnumRecuperarTodos = $"{BaseUrl.ApiBase}/Enum/RecuperarTodos";
             public const string UsuarioRecuperarAmbienteUsuario = $"{BaseUrl.ApiBase}/usuario/RecuperarAmbienteUsuario";
             public const string Token = $"{BaseUrl.ApiBase}/token";
+
+            public const string RecuperarRecursos = $"{BaseUrl.ApiBase}/RecursoSistema/RecuperarRecursos";
+            public const string PerfilAcessoRecuperarPermissoesUsuarioLogado = $"{BaseUrl.ApiBase}/PerfilAcesso/RecuperarPermissoesUsuarioLogado";
+
         }
 
         public static class Headers

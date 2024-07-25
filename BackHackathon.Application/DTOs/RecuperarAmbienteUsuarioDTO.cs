@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using BackHackathon.Application.Dtos;
 using BackHackathon.Application.Exemplo.Dtos;
 
 namespace BackHackathon.Domain.Dtos;
@@ -183,10 +184,10 @@ public class RecuperarAmbienteUsuarioDTO
     public List<ConfigCampoObrigatorioDTO> ConfigCampoObrigatorio { get; set; }
 
     [JsonPropertyName("UnidadesPermitidas")]
-    public List<UnidadesPermitida> UnidadesPermitidas { get; set; }
+    public List<UnidadesPermitidaDTO> UnidadesPermitidas { get; set; }
 
     [JsonPropertyName("TermosUsoSistemaWeb")]
-    public TermosUsoSistemaWeb TermosUsoSistemaWeb { get; set; }
+    public TermosUsoSistemaWebDTO TermosUsoSistemaWeb { get; set; }
 
     [JsonPropertyName("Aviso")]
     public object Aviso { get; set; }

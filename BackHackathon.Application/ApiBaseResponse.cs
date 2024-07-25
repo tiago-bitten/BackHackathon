@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace BackHackathon.Domain;
+namespace BackHackathon.Application;
 
 public class ApiBaseResponse<T>
 {

@@ -1,10 +1,13 @@
-using System.Text.Json.Serialization;
-using BackHackathon.Application.Exemplo.Dtos;
 using BackHackathon.Domain.Dtos;
 
-namespace BackHackathon.Domain.Queries.GetRecuperarAmbienteUsuario;
+namespace BackHackathon.Application.Queries.GetRecuperarAmbienteUsuario;
 
-public class GetRecuperarAmbienteUsuarioResponse
+public class GetRecuperarAmbienteUsuarioResponse<T> : ApiBaseResponse<T> where T : RecuperarAmbienteUsuarioDTO
 {
-    public ApiBaseResponse<RecuperarAmbienteUsuarioDTO> ApiBaseResponse { get; set; }
+    public GetRecuperarAmbienteUsuarioResponse(ApiBaseResponse<RecuperarAmbienteUsuarioDTO> apiBaseResponse)
+    {
+        Success = apiBaseResponse.Success;
+        Content = apiBaseResponse.Content as T;
+        Message = apiBaseResponse.Message;
+    }
 }
