@@ -5,9 +5,9 @@ using MediatR;
 
 namespace BackHackathon.Application.Queries.GetRecuperarPermissoesUsuarioLogado;
 
-public class GetRecuperarPermissoesUsuarioLogadoQueryHandler : IRequestHandler<GetRecuperarPermissoesUsuarioLogadoQuery, GetRecuperarPermissoesUsuarioLogadoResponse<PermissaoDTO>>
+public class GetRecuperarPermissoesUsuarioLogadoQueryHandler : IRequestHandler<GetRecuperarPermissoesUsuarioLogadoQuery, GetRecuperarPermissoesUsuarioLogadoResponse>
 {
-    public async Task<GetRecuperarPermissoesUsuarioLogadoResponse<PermissaoDTO>> Handle(GetRecuperarPermissoesUsuarioLogadoQuery requestCommand, CancellationToken cancellationToken)
+    public async Task<GetRecuperarPermissoesUsuarioLogadoResponse> Handle(GetRecuperarPermissoesUsuarioLogadoQuery requestCommand, CancellationToken cancellationToken)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Get, SandboxApiConfig.Endpoints.PerfilAcessoRecuperarPermissoesUsuarioLogado);
@@ -18,6 +18,6 @@ public class GetRecuperarPermissoesUsuarioLogadoQueryHandler : IRequestHandler<G
 
         var responseDto = JsonSerializer.Deserialize<ApiBaseResponse<List<PermissaoDTO>>>(responseContent);
 
-        return new GetRecuperarPermissoesUsuarioLogadoResponse<PermissaoDTO>(responseDto);
+        return new GetRecuperarPermissoesUsuarioLogadoResponse(responseDto);
     }
 }

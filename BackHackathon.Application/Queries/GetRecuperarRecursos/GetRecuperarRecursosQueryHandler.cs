@@ -5,9 +5,9 @@ using MediatR;
 
 namespace BackHackathon.Application.Queries.GetRecuperarRecursos;
 
-public class GetRecuperarRecursosQueryHandler : IRequestHandler<GetRecuperarRecursosQuery, GetRecuperarRecursosResponse<RecursoDTO>>
+public class GetRecuperarRecursosQueryHandler : IRequestHandler<GetRecuperarRecursosQuery, GetRecuperarRecursosResponse>
 {
-    public async Task<GetRecuperarRecursosResponse<RecursoDTO>> Handle(GetRecuperarRecursosQuery requestCommand, CancellationToken cancellationToken)
+    public async Task<GetRecuperarRecursosResponse> Handle(GetRecuperarRecursosQuery requestCommand, CancellationToken cancellationToken)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Get, SandboxApiConfig.Endpoints.RecuperarRecursos);
@@ -20,6 +20,6 @@ public class GetRecuperarRecursosQueryHandler : IRequestHandler<GetRecuperarRecu
 
         var responseDto = JsonSerializer.Deserialize<ApiBaseResponse<List<RecursoDTO>>>(responseContent);
 
-        return new GetRecuperarRecursosResponse<RecursoDTO>(responseDto);
+        return new GetRecuperarRecursosResponse(responseDto);
     }
 }

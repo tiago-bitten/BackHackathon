@@ -4,7 +4,7 @@ using MediatR;
 
 namespace BackHackathon.Application.Queries.GetRecuperarRecursos;
 
-public class GetRecuperarRecursosQuery : IRequest<GetRecuperarRecursosResponse<RecursoDTO>>
+public class GetRecuperarRecursosQuery : IRequest<GetRecuperarRecursosResponse>
 {
     public string Authorization { get; set; }
     public int CodigoUnidade { get; set; }

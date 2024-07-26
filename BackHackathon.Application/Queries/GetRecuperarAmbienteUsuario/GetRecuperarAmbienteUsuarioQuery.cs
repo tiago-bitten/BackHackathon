@@ -3,7 +3,7 @@ using MediatR;
 
 namespace BackHackathon.Application.Queries.GetRecuperarAmbienteUsuario;
 
-public class GetRecuperarAmbienteUsuarioQuery : IRequest<GetRecuperarAmbienteUsuarioResponse<RecuperarAmbienteUsuarioDTO>>
+public class GetRecuperarAmbienteUsuarioQuery : IRequest<GetRecuperarAmbienteUsuarioResponse>
 {
     public string Authorization { get; set; }    
     public int CodigoUsuario { get; set; }

@@ -5,9 +5,9 @@ using MediatR;
 
 namespace BackHackathon.Application.Queries.GetRecuperarAmbienteUsuario;
 
-public class GetRecuperarAmbienteUsuarioQueryHandler : IRequestHandler<GetRecuperarAmbienteUsuarioQuery, GetRecuperarAmbienteUsuarioResponse<RecuperarAmbienteUsuarioDTO>>
+public class GetRecuperarAmbienteUsuarioQueryHandler : IRequestHandler<GetRecuperarAmbienteUsuarioQuery, GetRecuperarAmbienteUsuarioResponse>
 {
-    public async Task<GetRecuperarAmbienteUsuarioResponse<RecuperarAmbienteUsuarioDTO>> Handle(GetRecuperarAmbienteUsuarioQuery requestCommand, CancellationToken cancellationToken)
+    public async Task<GetRecuperarAmbienteUsuarioResponse> Handle(GetRecuperarAmbienteUsuarioQuery requestCommand, CancellationToken cancellationToken)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Get, SandboxApiConfig.Endpoints.UsuarioRecuperarAmbienteUsuario);
@@ -22,6 +22,6 @@ public class GetRecuperarAmbienteUsuarioQueryHandler : IRequestHandler<GetRecupe
 
         var responseDto = JsonSerializer.Deserialize<ApiBaseResponse<RecuperarAmbienteUsuarioDTO>>(responseContent);
 
-        return new GetRecuperarAmbienteUsuarioResponse<RecuperarAmbienteUsuarioDTO>(responseDto);
+        return new GetRecuperarAmbienteUsuarioResponse(responseDto);
     }
 }

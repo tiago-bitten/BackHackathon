@@ -2,11 +2,11 @@ using BackHackathon.Application.DTOs;
 
 namespace BackHackathon.Application.Queries.GetRecuperarPermissoesUsuarioLogado;
 
-public class GetRecuperarPermissoesUsuarioLogadoResponse<T> : ApiBaseResponse<List<T>> where T : PermissaoDTO
+public class GetRecuperarPermissoesUsuarioLogadoResponse : ApiBaseResponse<List<PermissaoDTO>> 
 {
     public GetRecuperarPermissoesUsuarioLogadoResponse(ApiBaseResponse<List<PermissaoDTO>> apiBaseResponse)
     {
-        Content = apiBaseResponse.Content as List<T>;
+        Content = apiBaseResponse.Content;
         Message = apiBaseResponse.Message;
         Success = apiBaseResponse.Success;
     }

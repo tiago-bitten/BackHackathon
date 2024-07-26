@@ -2,11 +2,11 @@ using BackHackathon.Application.DTOs;
 
 namespace BackHackathon.Application.Queries.GetRecuperarRecursos;
 
-public class GetRecuperarRecursosResponse<T> : ApiBaseResponse<List<T>> where T : RecursoDTO
+public class GetRecuperarRecursosResponse: ApiBaseResponse<List<RecursoDTO>>
 {
     public GetRecuperarRecursosResponse(ApiBaseResponse<List<RecursoDTO>> apiBaseResponse)
     {
-        Content = apiBaseResponse.Content as List<T>;
+        Content = apiBaseResponse.Content;
         Message = apiBaseResponse.Message;
         Success = apiBaseResponse.Success;
     }

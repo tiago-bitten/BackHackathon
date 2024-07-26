@@ -2,12 +2,12 @@ using BackHackathon.Application.Dtos;
 
 namespace BackHackathon.Application.Queries.GetRecuperarEnums;
 
-public class GetRecuperarEnumsResponse<T> : ApiBaseResponse<T> where T : EnumsDTO
+public class GetRecuperarEnumsResponse : ApiBaseResponse<EnumsDTO>
 {
     public GetRecuperarEnumsResponse(ApiBaseResponse<EnumsDTO> apiBaseResponse)
     {
+        Content = apiBaseResponse.Content;
         Success = apiBaseResponse.Success;
         Message = apiBaseResponse.Message;
-        Content = apiBaseResponse.Content as T;
     }
 }

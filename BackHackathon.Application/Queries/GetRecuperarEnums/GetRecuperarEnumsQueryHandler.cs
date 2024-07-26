@@ -6,9 +6,9 @@ using MediatR;
 
 namespace BackHackathon.Application.Queries.GetRecuperarEnums;
 
-public class GetRecuperarEnumsQueryHandler : IRequestHandler<GetRecuperarEnumsQuery, GetRecuperarEnumsResponse<EnumsDTO>>
+public class GetRecuperarEnumsQueryHandler : IRequestHandler<GetRecuperarEnumsQuery, GetRecuperarEnumsResponse>
 {
-    public async Task<GetRecuperarEnumsResponse<EnumsDTO>> Handle(GetRecuperarEnumsQuery requestCommand, CancellationToken cancellationToken)
+    public async Task<GetRecuperarEnumsResponse> Handle(GetRecuperarEnumsQuery requestCommand, CancellationToken cancellationToken)
     {
         var client = new HttpClient();
         var request = new HttpRequestMessage(HttpMethod.Get, SandboxApiConfig.Endpoints.EnumRecuperarTodos);
@@ -21,6 +21,6 @@ public class GetRecuperarEnumsQueryHandler : IRequestHandler<GetRecuperarEnumsQu
 
         var responseDto = JsonSerializer.Deserialize<ApiBaseResponse<EnumsDTO>>(responseContent);
 
-        return new GetRecuperarEnumsResponse<EnumsDTO>(responseDto);
+        return new GetRecuperarEnumsResponse(responseDto);
     }
 }
