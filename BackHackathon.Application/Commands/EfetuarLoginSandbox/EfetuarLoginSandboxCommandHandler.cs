@@ -19,10 +19,10 @@ public class EfetuarLoginSandboxCommandHandler : IRequestHandler<EfetuarLoginSan
         };
 
         request.Content = new FormUrlEncodedContent(collection);
-        var response = await client.SendAsync(request);
+        var response = await client.SendAsync(request, cancellationToken);
         
         response.EnsureSuccessStatusCode();
-        var responseContent = await response.Content.ReadAsStringAsync();
+        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
         
         return JsonSerializer.Deserialize<EfetuarLoginSandboxResponse>(responseContent);
     }
