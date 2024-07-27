@@ -1,15 +1,16 @@
 using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace BackHackathon.Application;
 
 public class ApiBaseResponse<T>
 {
-    [JsonPropertyName("Content")]
+    [JsonProperty("Content")]
     public T Content { get; set; }
 
-    [JsonPropertyName("Message")]
+    [JsonProperty("Message")]
     public string Message { get; set; }
 
-    [JsonPropertyName("Success")]
+    [JsonProperty("Success")]
     public bool Success { get; set; }
 }
