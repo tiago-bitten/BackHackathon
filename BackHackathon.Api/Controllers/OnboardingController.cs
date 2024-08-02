@@ -1,8 +1,8 @@
-﻿using BackHackathon.Domain.Entities;
-using BackHackathon.Domain.Intefaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
 using BackHackathon.Application.DTOs;
-using BackHackathon.Application.DTOs.resto;
+using BackHackathon.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
+using BackHackathon.Domain.Intefaces;
 
 namespace BackHackathon.Api.Controllers
 {
@@ -15,106 +15,70 @@ namespace BackHackathon.Api.Controllers
         private readonly IContratoService _contratoService;
         private readonly IConfigAvaliacaoFisicaService _configAvaliacaoFisicaService;
         private readonly IConfigCaixaService _configCaixaService;
+        private readonly IConfigContratoBloqueioService _configContratoBloqueioService;
+        private readonly IMapper _mapper;
 
         public OnboardingController(ILoginSandboxService login,
             IModalidadeService modalidadeService,
             IContratoService contratoService,
             IConfigAvaliacaoFisicaService configAvaliacaoFisicaService,
-            IConfigCaixaService configCaixaService)
+            IConfigCaixaService configCaixaService, IConfigContratoBloqueioService configContratoBloqueioService, IMapper mapper)
         {
             _login = login;
             _modalidadeService = modalidadeService;
             _contratoService = contratoService;
             _configAvaliacaoFisicaService = configAvaliacaoFisicaService;
             _configCaixaService = configCaixaService;
+            _configContratoBloqueioService = configContratoBloqueioService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Configurar([FromBody] OrboardingDto dto)
         {
-            return Ok(await _login.Login());
-        }
+            var loginResult = await _login.Login();
 
-        [HttpPost]
-        public async Task<IActionResult> Modalidade([FromBody] ModalidadeDTO modalidadeDto)
-        {
-            var modalidade = new Modalidade
-            {
-                Descricao = modalidadeDto.Descricao
-            };
-
+            var modalidade = _mapper.Map<Modalidade>(dto.ModalidadeDto);
             var modalidadeCriada = await _modalidadeService.Criar(modalidade);
 
-            return Ok(modalidadeCriada);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Contrato([FromBody] ContratoDTO contratoDto)
-        {
-            var contrato = new Contrato
+            foreach (var modalidadeDto in dto.ContratoDto.Modalidades)
             {
-                Descricao = contratoDto.Descricao,
-                TipoDuracao = contratoDto.TipoDuracao,
-                TempoDuracao = contratoDto.TempoDuracao,
-                ValorTotal = contratoDto.ValorTotal
-            };
-
-            foreach (var modalidadeDto in contratoDto.Modalidades)
-            {
-                var contratoModalidade = new ContratoModalidade
-                {
-                    CodigoModalidade = modalidadeDto.CodigoModalidade
-                };
-                contrato.Modalidades.Add(contratoModalidade);
+                modalidadeDto.CodigoModalidade = modalidadeCriada.Id;
             }
 
+            var contrato = _mapper.Map<Contrato>(dto.ContratoDto);
             var contratoCriado = await _contratoService.Criar(contrato);
 
-            return Ok(contratoCriado);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ConfigAvaliacaoFisica([FromBody] ConfigAvaliacaoFisicaDTO configDto)
-        {
-            var config = new ConfigAvaliacaoFisica
+            if (dto.ConfigAvaliacaoFisicaDto != null)
             {
-                TipoUnidadeMedidaAltura = configDto.TipoUnidadeMedidaAltura,
-                CalculaImc = configDto.CalculaImc,
-                CalculaPesoIdeal = configDto.CalculaPesoIdeal,
-                QtdeDiasProximaAvaliacao = configDto.QtdeDiasProximaAvaliacao
-            };
+                var configAvaliacaoFisica = _mapper.Map<ConfigAvaliacaoFisica>(dto.ConfigAvaliacaoFisicaDto);
+                await _configAvaliacaoFisicaService.Configurar(configAvaliacaoFisica);
+            }
 
-            var configCriada = await _configAvaliacaoFisicaService.Configurar(config);
-
-            return Ok(configCriada);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ConfigCaixa([FromBody] ConfigCaixaDTO configDto)
-        {
-            var config = new ConfigCaixa
+            /*if (dto.ConfigCaixaDto != null)
             {
-                EnviarRelFechamentoParaUsuariosEnvolvidos = configDto.EnviarRelFechamentoParaUsuariosEnvolvidos,
-                PermiteAbrirMultiplosCaixas = configDto.PermiteAbrirMultiplosCaixas
-            };
+                var configCaixa = _mapper.Map<ConfigCaixa>(dto.ConfigCaixaDto);
+                await _configCaixaService.Configurar(configCaixa);
+            }
 
-            await _configCaixaService.Configurar(config);
-
-            return Ok("Configuração realizada");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ConfigUsuarioRecebimentoCaixa([FromBody] UsuarioRecebimentoCaixaDTO usuarioDto)
-        {
-            var usuario = new UsuarioRecebimentoCaixa
+            if (dto.UsuarioRecebimentoCaixaDto != null)
             {
-                CodigoUsuario = usuarioDto.CodigoUsuario,
-                CodigoConfigCaixa = usuarioDto.CodigoConfigCaixa
-            };
+                var usuarioRecebimentoCaixa = _mapper.Map<UsuarioRecebimentoCaixa>(dto.UsuarioRecebimentoCaixaDto);
+                await _configCaixaService.ConfigurarNotificarUsuarioFechamento(usuarioRecebimentoCaixa);
+            }*/
 
-            await _configCaixaService.ConfigurarNotificarUsuarioFechamento(usuario);
+            if (dto.ConfigContratoBloqueioDto != null)
+            {
+                var configContratoBloqueio = _mapper.Map<ConfigContratoBloqueio>(dto.ConfigContratoBloqueioDto);
+                await _configContratoBloqueioService.Configurar(configContratoBloqueio);
+            }
 
-            return Ok("Usuário configurado");
+            return Ok(new
+            {
+                Modalidade = modalidadeCriada,
+                Contrato = contratoCriado,
+                Mensagem = "Onboarding realizado com sucesso!"
+            });
         }
     }
 }

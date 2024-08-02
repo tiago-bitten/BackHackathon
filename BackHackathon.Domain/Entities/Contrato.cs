@@ -11,7 +11,6 @@ public class Contrato
     public ETipoDuracao TipoDuracao { get; set; }
     public decimal ValorTotal { get; set; }
     public List<ContratoModalidade> Modalidades { get; set; } = new();
-    //public List<Unidade> Unidades { get; set; }= new();
 
     public int CodigoCategoriaReceita { get; set; } = 88417;
     public bool ContabilizarAulasFormaConjunta { get; set; } = false;

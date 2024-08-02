@@ -1,8 +1,8 @@
-﻿using BackHackathon.Domain.Enums;
+using BackHackathon.Domain.Enums;
 
 namespace BackHackathon.Application.DTOs;
 
-public class ConfigAvaliacaoFisicaDTO
+public class CreateConfigAvaliacaoFisicaDto
 {
     public ETipoUnidadeMedida TipoUnidadeMedidaAltura { get; set; }
     public bool CalculaImc { get; set; }

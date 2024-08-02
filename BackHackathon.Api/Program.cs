@@ -1,4 +1,5 @@
 using BackHackathon.Api.Filters;
+using BackHackathon.Api.Profiles;
 using BackHackathon.Application.Commands.EfetuarLoginSandbox;
 using BackHackathon.Application.Services;
 using BackHackathon.Domain.Intefaces;
@@ -23,8 +24,9 @@ builder.Services.AddScoped<IUnidadeService, UnidadeService>();
 builder.Services.AddScoped<IContratoService, ContratoService>();
 builder.Services.AddScoped<IConfigAvaliacaoFisicaService, ConfigAvaliacaoFisicaService>();
 builder.Services.AddScoped<IConfigCaixaService, ConfigCaixaService>();
+builder.Services.AddScoped<IConfigContratoBloqueioService, ConfigContratoBloqueioService>();
 
-builder.Services.AddTransient<OnboardingConfigService>();
+builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

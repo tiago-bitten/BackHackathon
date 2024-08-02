@@ -1,7 +1,6 @@
-﻿namespace BackHackathon.Application.DTOs;
+namespace BackHackathon.Application.DTOs;
 
-
-public class UsuarioRecebimentoCaixaDTO
+public class CreateUsuarioRecebimentoCaixaDto
 {
     public int CodigoUsuario { get; set; }
     public int CodigoConfigCaixa { get; set; }

@@ -22,6 +22,7 @@ namespace BackHackathon.Application.Constants
 
             public const string ConfigCaixa = $"{BaseUrl.ApiBase}/ConfigCaixa";
             public const string ConfigCaixaNotifUsuarioFechamento = $"{BaseUrl.ApiBase}/ConfigCaixaNotifUsuarioFechamento/Inserir";
+            public const string ConfigContratoBloqueio = $"{BaseUrl.ApiBase}/ConfigContratoBloqueio";
         }
 
         public static class Headers
